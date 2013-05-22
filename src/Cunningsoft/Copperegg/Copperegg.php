@@ -35,7 +35,9 @@ class Copperegg
         $request->setResource('/v2/annotations.json');
         $request->setContent('note=' . $note . '&starttime=' . $startDate->getTimestamp() . '&endtime=' . $endDate->getTimestamp() . '&tag=' . implode(',', $tags));
 
-        $browser = new Browser(new Curl());
+        $curl = new Curl();
+        $curl->setVerifyPeer(false);
+        $browser = new Browser($curl);
 
         return $browser->send($request);
     }
